@@ -6,13 +6,13 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/24 22:08:07 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/11/24 22:44:43 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int ft_check(char *s, char c)
+int		ft_check(char *s, char c)
 {
 	int i;
 
@@ -23,13 +23,13 @@ int ft_check(char *s, char c)
 	return (0);
 }
 
-size_t  ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t x;
 
 	x = 0;
 	while (*s++)
-		i++;
+		x++;
 	return (x);
 }
 
@@ -55,14 +55,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
-int get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	int ret;
-	char temp[BUFFER_SIZE + 1];
-	static char *rest;
-	int i;
-	int j;
-	char buff[BUFFER_SIZE + 1];
+	int			ret;
+	char		temp[BUFFER_SIZE + 1];
+	static char	*rest;
+	int			i;
+	int			j;
+	char		buff[BUFFER_SIZE + 1];
 
 	i = 0;
 	j = 0;
@@ -85,6 +85,9 @@ int get_next_line(int fd, char **line)
 				j++;
 			}
 			*line = ft_strjoin(*line, temp);
+			printf("char line == %s\n", *line);
+			printf("temp == %s\n", temp);
+			printf("rest == %s\n", rest);
 			return (1);
 		}
 		else

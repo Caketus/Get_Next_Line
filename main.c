@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 22:08:41 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/24 22:09:20 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/11/24 22:32:38 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main()
 	int fd;
 	char *line;
 	int line_count = 1;
-	if ((fd = open("test1.txt", O_RDONLY)) == -1)
+	if ((fd = open("maxlenul.txt", O_RDONLY)) == -1)
 	{
 		printf("Couldn't open test file :(\n");
 		return (0);
@@ -30,6 +30,4 @@ int main()
 		printf("Line %i: '%s'\n", line_count, line);
 		line_count++;
 	}
-	printf("Line %i: '%s'\n", line_count, line);
-	line_count++;
 }
