@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/25 15:21:01 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/11/25 19:04:58 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int		get_next_line(int fd, char **line)
 
 	i = 0;
 	j = 0;
+	*line = malloc(1);
+	*line = "";
 	if(*rest)
 	{
 		*line = ft_strjoin(rest, *line);
@@ -83,7 +85,7 @@ int		get_next_line(int fd, char **line)
 			temp[i] = '\0';
 			while (buff[i])
 			{
-				rest[j] = buff[i];
+				rest[j] = buff[i + 1];
 				i++;
 				j++;
 			}
