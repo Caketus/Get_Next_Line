@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/24 22:44:43 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:16:28 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		len_s1;
 	int		x;
 
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
 	len_s1 = ft_strlen(s1);
 	x = ft_strlen(s2);
@@ -59,13 +59,17 @@ int		get_next_line(int fd, char **line)
 {
 	int			ret;
 	char		temp[BUFFER_SIZE + 1];
-	static char	*rest;
+	static char	rest[BUFFER_SIZE + 1];
 	int			i;
 	int			j;
 	char		buff[BUFFER_SIZE + 1];
 
 	i = 0;
 	j = 0;
+	if(*rest)
+	{
+		*line = ft_strjoin(rest, *line);
+	}
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
@@ -77,7 +81,6 @@ int		get_next_line(int fd, char **line)
 				i++;
 			}
 			temp[i] = '\0';
-			rest = malloc(sizeof(char) * (BUFFER_SIZE + 1) - i);
 			while (buff[i])
 			{
 				rest[j] = buff[i];
@@ -85,14 +88,11 @@ int		get_next_line(int fd, char **line)
 				j++;
 			}
 			*line = ft_strjoin(*line, temp);
-			printf("char line == %s\n", *line);
-			printf("temp == %s\n", temp);
-			printf("rest == %s\n", rest);
 			return (1);
 		}
 		else
 		{
-			*line = ft_strjoin(*line, temp);
+			*line = ft_strjoin(*line, buff);
 		}
 	}
 	return (ret);
