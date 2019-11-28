@@ -6,11 +6,29 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/25 19:04:58 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:39:06 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strdup(const char *s1)
+{
+	int		x;
+	char	*dest;
+
+	dest = NULL;
+	x = 0;
+	if (!(dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (NULL);
+	while (s1[x])
+	{
+		dest[x] = s1[x];
+		x++;
+	}
+	dest[x] = '\0';
+	return (dest);
+}
 
 int		ft_check(char *s, char c)
 {
