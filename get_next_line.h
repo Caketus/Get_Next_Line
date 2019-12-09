@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:20:20 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/25 14:43:27 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/09 20:11:00 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@
 # include <fcntl.h>
 
 int		get_next_line(int fd, char **line);
-int		ft_check(char *s, char c);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(const char *s1, const char *s2);
+void	*ft_memmove(void *dst, const void *src, size_t len);
 #endif

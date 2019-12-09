@@ -6,13 +6,13 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/28 14:39:06 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/09 20:22:11 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strdup(const char *s1)
+static char		*ft_strdup(const char *s1)
 {
 	int		x;
 	char	*dest;
@@ -30,7 +30,7 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-int		ft_check(char *s, char c)
+static int		ft_check(char *s, char c)
 {
 	int i;
 
@@ -41,7 +41,7 @@ int		ft_check(char *s, char c)
 	return (0);
 }
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	size_t x;
 
@@ -51,7 +51,7 @@ size_t	ft_strlen(const char *s)
 	return (x);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static char		*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*joined;
 	int		len_s1;
@@ -73,7 +73,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
-int		get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
 	int			ret;
 	char		temp[BUFFER_SIZE + 1];
@@ -84,9 +84,10 @@ int		get_next_line(int fd, char **line)
 
 	i = 0;
 	j = 0;
-	*line = malloc(1);
+	if (!(*line = (char *)malloc(sizeof(char) * (ft_strlen(*line) + 1))))
+		return (0);
 	*line = "";
-	if(*rest)
+	if (*rest)
 	{
 		*line = ft_strjoin(rest, *line);
 	}
