@@ -6,11 +6,21 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/09 20:22:11 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/10 21:13:32 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t x;
+
+	x = 0;
+	while (*s++)
+		x++;
+	return (x);
+}
 
 static char		*ft_strdup(const char *s1)
 {
@@ -39,16 +49,6 @@ static int		ft_check(char *s, char c)
 		if (s[i++] == c)
 			return (1);
 	return (0);
-}
-
-static size_t	ft_strlen(const char *s)
-{
-	size_t x;
-
-	x = 0;
-	while (*s++)
-		x++;
-	return (x);
 }
 
 static char		*ft_strjoin(char const *s1, char const *s2)
@@ -88,14 +88,31 @@ int				get_next_line(int fd, char **line)
 		return (0);
 	*line = "";
 	if (*rest)
-	{
-		*line = ft_strjoin(rest, *line);
+	{	
+		if (ft_check(rest, '\n') == 0)
+		{
+			*line = ft_strjoin(*line, rest);
+			return (1);
+		}
+		else
+		{
+			while (rest[i] != '\n')
+			{
+				temp[i] = rest[i];
+				i++;
+			}
+			temp[i] = '\0';
+			*line = ft_strjoin(*line, temp);
+			ft_memmove(rest, &rest[i], ft_strlen(rest) - i);
+			return (1);
+		}
 	}
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
 		if (ft_check(buff, '\n') == 1)
 		{
+			i = 0;
 			while (buff[i] != '\n')
 			{
 				temp[i] = buff[i];
