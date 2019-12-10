@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 22:08:41 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/11/28 15:42:53 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/10 21:31:48 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(void)
 	nb_line = 1;
 	if ((fd = open("maxlenul.txt", O_RDONLY)) == -1)
 		printf("le fichier n'existe pas.");
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) > 0 && nb_line < 30)
 	{
 		printf("line[%d]: %s\n", nb_line, line);
 		nb_line++;

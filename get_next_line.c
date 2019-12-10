@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/10 21:13:32 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/10 21:48:53 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,9 @@ int				get_next_line(int fd, char **line)
 	*line = "";
 	if (*rest)
 	{	
-		if (ft_check(rest, '\n') == 0)
+		if (ft_check(rest, '\n') == 0) // pas de '\n'
 		{
 			*line = ft_strjoin(*line, rest);
-			return (1);
 		}
 		else
 		{
@@ -101,7 +100,7 @@ int				get_next_line(int fd, char **line)
 				temp[i] = rest[i];
 				i++;
 			}
-			temp[i] = '\0';
+			temp[i++] = '\0';
 			*line = ft_strjoin(*line, temp);
 			ft_memmove(rest, &rest[i], ft_strlen(rest) - i);
 			return (1);
