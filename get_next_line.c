@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/11 23:05:07 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/11 23:29:13 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,37 +77,38 @@ int				get_next_line(int fd, char **line)
 {
 	int			ret;
 	char		temp[BUFFER_SIZE + 1];
-	static char	rest[BUFFER_SIZE + 1];
+	static char	*rest;
 	int			i;
-	int			j;
 	char		buff[BUFFER_SIZE + 1];
 
-	i = 0;
-	j = 0;
 	if (!(*line = (char *)malloc(sizeof(char) * (ft_strlen(*line) + 1))))
 		return (0);
 	*line = "";
-	if (*rest)
+	if (rest && *rest)
 	{
+		printf("rest == %s\n", rest);
 		//printf("\x1b[34m" "rest == %s\n" "\x1b[0m", rest);
 		if (ft_check(rest, '\n') == 0) // pas de '\n'
 		{
-			*line = ft_strjoin(*line, rest);
+			*line = ft_strdup(rest);
+			//*line = ft_strjoin(*line, rest);
+			rest = NULL;
 		}
+
 		else
 		{
-			i = 0;
-			while (rest[i] != '\n')
+			i = -1;
+			while (rest[++i] != '\n')
 			{
 				temp[i] = rest[i];
 				i++;
 			}
-			temp[i++] = '\0';
+			temp[i] = '\0';
 			*line = ft_strjoin(*line, temp);
-			printf("rest before memove == %s\n", rest);
-			rest = ft_memmove(rest, &rest[i], ft_strlen(rest) - i);
-			printf("rest after memove == %s\n", rest);
-			ft_memset(rest, 0, ft_strlen(rest));
+		//	printf("rest before memove == %s\n", rest);
+			rest = ft_memmove(rest, &rest[i + 1], ft_strlen(rest) - i);
+		//	printf("rest after memove == %s\n", rest);
+		//	ft_memset(rest, 0, ft_strlen(rest));
 			return (1);
 		}
 	}
@@ -116,20 +117,14 @@ int				get_next_line(int fd, char **line)
 		buff[ret] = '\0';
 		if (ft_check(buff, '\n') == 1)
 		{
-			i = 0;
-			while (buff[i] != '\n')
+			i = -1;
+			while (buff[++i] != '\n')
 			{
 				temp[i] = buff[i];
-				i++;
 			}
 			temp[i] = '\0';
-			while (buff[i])
-			{
-				rest[j] = buff[i + 1];
-				i++;
-				j++;
-			}
 			*line = ft_strjoin(*line, temp);
+			rest = ft_strdup(&buff[i + 1]);
 			return (1);
 		}
 		else
