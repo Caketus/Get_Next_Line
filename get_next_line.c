@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/10 21:48:53 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/11 23:05:07 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,15 @@ int				get_next_line(int fd, char **line)
 		return (0);
 	*line = "";
 	if (*rest)
-	{	
+	{
+		//printf("\x1b[34m" "rest == %s\n" "\x1b[0m", rest);
 		if (ft_check(rest, '\n') == 0) // pas de '\n'
 		{
 			*line = ft_strjoin(*line, rest);
 		}
 		else
 		{
+			i = 0;
 			while (rest[i] != '\n')
 			{
 				temp[i] = rest[i];
@@ -102,7 +104,10 @@ int				get_next_line(int fd, char **line)
 			}
 			temp[i++] = '\0';
 			*line = ft_strjoin(*line, temp);
-			ft_memmove(rest, &rest[i], ft_strlen(rest) - i);
+			printf("rest before memove == %s\n", rest);
+			rest = ft_memmove(rest, &rest[i], ft_strlen(rest) - i);
+			printf("rest after memove == %s\n", rest);
+			ft_memset(rest, 0, ft_strlen(rest));
 			return (1);
 		}
 	}

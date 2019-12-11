@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:09:08 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/10 21:49:05 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/11 21:53:35 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,14 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		while (len-- > 0)
 			ptrdst[len] = ptrsrc[len];
 	return (dst);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char *ptr;
+
+	ptr = b;
+	while (len--)
+		*ptr++ = (unsigned char)c;
+	return (b);
 }
