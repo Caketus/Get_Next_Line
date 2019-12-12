@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:09:08 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/11 21:53:35 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/12 16:03:26 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,52 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned char *ptr;
+	char	*joined;
+	int		len_s1;
+	int		x;
 
-	ptr = b;
-	while (len--)
-		*ptr++ = (unsigned char)c;
-	return (b);
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
+	len_s1 = ft_strlen(s1);
+	x = ft_strlen(s2);
+	if (!(joined = (char *)malloc(sizeof(char) * (len_s1 + x + 1))))
+		return (NULL);
+	x = -1;
+	while (s1[++x])
+		joined[x] = s1[x];
+	x = -1;
+	while (s2[++x])
+		joined[len_s1 + x] = s2[x];
+	joined[len_s1 + x] = '\0';
+	return (joined);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	int		x;
+	char	*dest;
+
+	dest = NULL;
+	x = 0;
+	if (!(dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (NULL);
+	while (s1[x])
+	{
+		dest[x] = s1[x];
+		x++;
+	}
+	dest[x] = '\0';
+	return (dest);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t x;
+
+	x = 0;
+	while (*s++)
+		x++;
+	return (x);
 }
