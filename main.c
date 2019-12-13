@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 22:08:41 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/12 14:08:44 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/13 14:29:19 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ int		main(void)
 	nb_line = 1;
 	if ((fd = open("maxlenul.txt", O_RDONLY)) == -1)
 		printf("le fichier n'existe pas.");
+	line = NULL;
 	while (get_next_line(fd, &line) > 0 && nb_line)
 	{
 		printf("line[%d]: %s\n", nb_line, line);
+		free(line);
+		line = NULL;
 		nb_line++;
 	}
+	free(line);
+//	system("leaks a.out");
 }

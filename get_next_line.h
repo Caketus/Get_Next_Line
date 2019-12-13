@@ -6,14 +6,14 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:20:20 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/12 15:55:26 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/13 19:54:24 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 12
+#  define BUFFER_SIZE 5
 # endif
 # include <unistd.h>
 # include <string.h>
