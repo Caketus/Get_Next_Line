@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 22:08:41 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/13 14:29:19 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:16:29 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int		main(void)
 		line = NULL;
 		nb_line++;
 	}
-	free(line);
+	//free(line);
 //	system("leaks a.out");
 }
