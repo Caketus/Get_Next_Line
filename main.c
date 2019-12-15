@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/24 22:08:41 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 16:27:14 by mkravetz         ###   ########.fr       */
+/*   Created: 2019/12/15 17:43:14 by mkravetz          #+#    #+#             */
+/*   Updated: 2019/12/15 17:50:27 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int		main(int ac, char **av)
 		nb_line++;
 	}
 	free(line);
-//	system("leaks a.out");
+	//	system("leaks a.out");
 }
