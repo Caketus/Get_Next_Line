@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 16:30:27 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 16:34:11 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int		has_newline(char **rest, char **line, char *temp, char *buff)
 		free(*rest);
 		*rest = NULL;
 		if (!(*rest = ft_strdup(&buff[i + 1])))
-			error(rest, -1);
+			return error(rest, -1);
 		return (1);
 	}
 	return (0);
