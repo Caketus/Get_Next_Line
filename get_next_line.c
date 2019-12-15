@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 16:21:31 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 16:30:27 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int		ret_rest(char *rest, char **line, char *temp)
 				temp[i] = rest[i];
 			temp[i] = '\0';
 			if (!(*line = ft_strjoin(line, temp)))
-				return error(&rest, -1);
+				return (error(&rest, -1));
 			ft_memmove(rest, &rest[i + 1], ft_strlen(rest) - i);
 			return (1);
 		}
@@ -95,7 +95,7 @@ int				get_next_line(int fd, char **line)
 	char		buff[BUFFER_SIZE + 1];
 
 	if (!line || (fd < 0 || fd >= OPEN_MAX) || (read(fd, buff, 0) < 0))
-		return error(&rest[fd], -1);
+		return (error(&rest[fd], -1));
 	*line = ft_strdup("");
 	if (ret_rest(rest[fd], line, temp) == 1)
 		return (1);
@@ -107,6 +107,5 @@ int				get_next_line(int fd, char **line)
 		if (!(*line = ft_strjoin(line, buff)))
 			return (error(&rest[fd], -1));
 	}
-	//printf("ret ==%d\n", ret);
 	return (ret);
 }
