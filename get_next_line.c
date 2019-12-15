@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 18:04:43 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 20:29:09 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int				get_next_line(int fd, char **line)
 	static char	*rest[OPEN_MAX];
 	char		buff[BUFFER_SIZE + 1];
 
-	if (!line || (fd < 0 || fd >= OPEN_MAX) || (read(fd, buff, 0) < 0))
+	if (!line || (fd < 0 || fd >= OPEN_MAX) || (read(fd, buff, 0) < 0)
+			|| BUFFER_SIZE < 1)
 	{
 		if (fd < 0)
 			return (-1);
