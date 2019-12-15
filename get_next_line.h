@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:20:20 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 11:37:20 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 15:28:42 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <limits.h>
 
 int		get_next_line(int fd, char **line);
 void	*ft_memmove(void *dst, const void *src, size_t len);

@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 22:08:41 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 11:44:55 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 16:27:14 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,37 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	char	*line;
 	int		nb_line;
 	int		fd;
+	int		fd2;
+	int		fd3;
 
+	if (ac < 3)
+		return (0);
 	nb_line = 1;
-	if ((fd = open("maxlenul.txt", O_RDONLY)) == -1)
+	if ((fd = open(av[1], O_RDONLY)) == -1)
+		printf("le fichier n'existe pas.");
+	if ((fd2 = open(av[2], O_RDONLY)) == -1)
+		printf("le fichier n'existe pas.");
+	if ((fd3 = open(av[3], O_RDONLY)) == -1)
 		printf("le fichier n'existe pas.");
 	line = NULL;
-	while (get_next_line(fd, &line) > 0 && nb_line)
+	int ret = 0;
+	while ((ret = get_next_line(fd, &line)) > 0 && nb_line)
 	{
 		printf("line[%d]: %s\n", nb_line, line);
 		free(line);
 		line = NULL;
+		ret = get_next_line(fd2, &line);
+		printf("line[%d]: %s\n", nb_line, line);
+		free(line);
+		line = NULL;
+		ret = get_next_line(fd3, &line);
+		printf("line[%d]: %s\n", nb_line, line);
+		free(line);
 		nb_line++;
 	}
 	free(line);
