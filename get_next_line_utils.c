@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:09:08 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/13 20:34:05 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 12:19:29 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,30 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char **s1, char const *s2)
 {
 	char	*joined;
 	int		len_s1;
 	int		x;
 
-	if (s1 == NULL && s2 == NULL)
+	if (*s1 == NULL && s2 == NULL)
 		return (NULL);
-	len_s1 = ft_strlen(s1);
+	if (*s1 == NULL)
+	{
+		free(*s1);
+		return (ft_strdup(s2));
+	}
+	len_s1 = ft_strlen(*s1);
 	x = ft_strlen(s2);
 	if (!(joined = (char *)malloc(sizeof(char) * (len_s1 + x + 1))))
 		return (NULL);
 	x = -1;
-	while (s1 && s1[++x])
-		joined[x] = s1[x];
+	ft_memmove(joined, *s1, len_s1);
 	x = -1;
 	while (s2 && s2[++x])
 		joined[len_s1 + x] = s2[x];
 	joined[len_s1 + x] = '\0';
+	free(*s1);
 	return (joined);
 }
 

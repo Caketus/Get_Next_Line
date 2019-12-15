@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/14 15:26:52 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/15 12:19:21 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,15 @@ static int		ft_check(char *s, char c)
 	return (0);
 }
 
-/*
-** Double pointer just to be able to add \0
-*/
-
-//static int		error(char **rest, int ret)
-//{
-//	if (*rest)
-//	{
-//		free(rest);
-//		rest = 0;
-//	}
-//	return (ret);
-//}
+static int		error(char **rest, int ret)
+{
+	if (*rest)
+	{
+		free(rest);
+		rest = 0;
+	}
+	return (ret);
+}
 
 static int		ret_rest(char *rest, char **line, char *temp)
 {
@@ -47,8 +43,8 @@ static int		ret_rest(char *rest, char **line, char *temp)
 	{
 		if (ft_check(rest, '\n') == 0)
 		{
-			if (!(*line = ft_strdup(rest)))
-				return (-1);
+			if (!(*line = ft_strjoin(line, rest)))
+				return (error(&rest, -1));
 			rest = NULL;
 		}
 		else
@@ -57,7 +53,7 @@ static int		ret_rest(char *rest, char **line, char *temp)
 			while (rest[++i] != '\n' && rest[i])
 				temp[i] = rest[i];
 			temp[i] = '\0';
-			if (!(*line = ft_strjoin(*line, temp)))
+			if (!(*line = ft_strjoin(line, temp)))
 				return (-1);
 			ft_memmove(rest, &rest[i + 1], ft_strlen(rest) - i);
 			return (1);
@@ -65,6 +61,10 @@ static int		ret_rest(char *rest, char **line, char *temp)
 	}
 	return (0);
 }
+
+/*
+**Free rest to prevent leaks in the strdup line 83
+*/
 
 static int		has_newline(char **rest, char **line, char *temp, char *buff)
 {
@@ -76,10 +76,12 @@ static int		has_newline(char **rest, char **line, char *temp, char *buff)
 		while (buff[++i] != '\n')
 			temp[i] = buff[i];
 		temp[i] = '\0';
-		if (!(*line = ft_strjoin(*line, temp)))
-			return (-1);
+		if (!(*line = ft_strjoin(line, temp)))
+			return (error(rest, -1));
+		free(*rest);
+		*rest = NULL;
 		if (!(*rest = ft_strdup(&buff[i + 1])))
-			return (-1);
+			error(rest, -1);
 		return (1);
 	}
 	return (0);
@@ -92,9 +94,7 @@ int				get_next_line(int fd, char **line)
 	static char	*rest;
 	char		buff[BUFFER_SIZE + 1];
 
-	if (!(*line = (char *)malloc(sizeof(char) * (ft_strlen(*line) + 1))))
-		return (0);	
-	*line = "";
+	*line = ft_strdup("");
 	if (ret_rest(rest, line, temp) == 1)
 		return (1);
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
@@ -102,8 +102,8 @@ int				get_next_line(int fd, char **line)
 		buff[ret] = '\0';
 		if (has_newline(&rest, line, temp, buff) == 1)
 			return (1);
-		if (!(*line = ft_strjoin(*line, buff)))
-			return (-1);
+		if (!(*line = ft_strjoin(line, buff)))
+			return (error(&rest, -1));
 	}
 	return (ret);
 }
