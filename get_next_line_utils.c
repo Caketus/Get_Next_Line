@@ -6,11 +6,11 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:09:08 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/17 16:25:23 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/17 19:43:48 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
