@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:19:55 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 20:49:54 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/17 19:24:06 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_check(char *s, char c)
 	return (0);
 }
 
-static int		error(char **rest, int ret)
+static int		ft_free(char **rest, int ret)
 {
 	if (*rest)
 	{
@@ -44,7 +44,7 @@ static int		ret_rest(char *rest, char **line, char *temp)
 		if (ft_check(rest, '\n') == 0)
 		{
 			if (!(*line = ft_strjoin(line, rest)))
-				return (error(&rest, -1));
+				return (ft_free(&rest, -1));
 			rest = NULL;
 		}
 		else
@@ -54,7 +54,7 @@ static int		ret_rest(char *rest, char **line, char *temp)
 				temp[i] = rest[i];
 			temp[i] = '\0';
 			if (!(*line = ft_strjoin(line, temp)))
-				return (error(&rest, -1));
+				return (ft_free(&rest, -1));
 			ft_memmove(rest, &rest[i + 1], ft_strlen(rest) - i);
 			return (1);
 		}
@@ -77,11 +77,11 @@ static int		has_newline(char **rest, char **line, char *temp, char *buff)
 			temp[i] = buff[i];
 		temp[i] = '\0';
 		if (!(*line = ft_strjoin(line, temp)))
-			return (error(rest, -1));
+			return (ft_free(rest, -1));
 		free(*rest);
 		*rest = NULL;
 		if (!(*rest = ft_strdup(&buff[i + 1])))
-			return (error(rest, -1));
+			return (ft_free(rest, -1));
 		return (1);
 	}
 	return (0);
@@ -99,7 +99,7 @@ int				get_next_line(int fd, char **line)
 	{
 		if (fd < 0)
 			return (-1);
-		return (error(&rest[fd], -1));
+		return (ft_free(&rest[fd], -1));
 	}
 	*line = ft_strdup("");
 	if (ret_rest(rest[fd], line, temp) == 1)
@@ -110,7 +110,8 @@ int				get_next_line(int fd, char **line)
 		if (has_newline(&rest[fd], line, temp, buff) == 1)
 			return (1);
 		if (!(*line = ft_strjoin(line, buff)))
-			return (error(&rest[fd], -1));
+			return (ft_free(&rest[fd], -1));
 	}
+	free(rest[fd]);
 	return (ret);
 }
