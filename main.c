@@ -6,7 +6,7 @@
 /*   By: mkravetz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:43:14 by mkravetz          #+#    #+#             */
-/*   Updated: 2019/12/15 17:50:27 by mkravetz         ###   ########.fr       */
+/*   Updated: 2019/12/17 16:58:24 by mkravetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ int		main(int ac, char **av)
 		free(line);
 		nb_line++;
 	}
+	printf("line[%d]: %s\n", nb_line, line);
+	free(line);
+	line = NULL;
+	ret = get_next_line(fd2, &line);
+	printf("line[%d]: %s\n", nb_line, line);
+	free(line);
+	line = NULL;
+	ret = get_next_line(fd3, &line);
+	printf("line[%d]: %s\n", nb_line, line);
 	free(line);
 	//	system("leaks a.out");
 }
